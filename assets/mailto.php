@@ -4,9 +4,11 @@ if(!isset($_POST['submit']))
 	//This page should not be accessed directly. Need to submit the form.
 	echo "error; you need to submit the form!";
 }
+
 $name = $_POST['name'];
 $visitor_email = $_POST['email'];
 $message = $_POST['message'];
+$captcha = $_POST['captcha'];
 
 //Validate first
 if(empty($name)||empty($visitor_email)) 
@@ -14,7 +16,10 @@ if(empty($name)||empty($visitor_email))
     echo "Name and email are mandatory!";
     exit;
 }
-
+if( empty($captcha) || strtolower($captcha) != 'beer' ){
+  echo "Apparently you don't know breweries make 'beer'... If you weren't a cyborg you would know that.";
+  exit;
+}
 if(IsInjected($visitor_email))
 {
     echo "Bad email value!";
